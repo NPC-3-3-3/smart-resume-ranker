@@ -4,167 +4,86 @@ An AI-powered resume analysis and ranking system that uses machine learning to e
 
 ## Features
 
-- **AI-Powered Ranking**: Machine learning model trained on resume data to score resumes 1-10
-- **Skill Extraction**: Automatically identifies technical skills and competencies
-- **Experience Analysis**: Extracts years of experience from resume content
-- **Web Interface**: Modern, responsive frontend for easy resume upload and analysis
-- **REST API**: Backend API for programmatic access
-- **Ranking History**: Track and view previous resume rankings
-- **Statistics Dashboard**: View overall statistics and ranking distributions
+- **Resume Analysis**: Upload PDF or text resumes for comprehensive analysis
+- **AI Scoring**: Machine learning model scores resumes on a 0-10 scale
+- **Skill Extraction**: Automatically identifies technical skills from resume content
+- **Experience Analysis**: Extracts years of experience information
+- **Templates**: Pre-built resume templates for testing
+- **Statistics Dashboard**: Track analysis metrics and trends
+- **History Tracking**: View past analysis results
+- **Modern UI**: Responsive web interface with professional design
+
+## Technology Stack
+
+- **Backend**: Python Flask API
+- **Frontend**: Vanilla JavaScript with modern CSS
+- **Machine Learning**: scikit-learn with TF-IDF vectorization
+- **File Processing**: PyPDF2 for PDF parsing
+- **Data Storage**: CSV dataset for model training
+
+## Quick Start
+
+1. **Install Dependencies**
+   ```bash
+   cd backend
+   pip install -r requirements.txt
+   ```
+
+2. **Train the Model**
+   ```bash
+   cd ml
+   python train_model.py
+   ```
+
+3. **Start the Backend**
+   ```bash
+   cd backend
+   python app.py
+   ```
+
+4. **Open Frontend**
+   - Open `frontend/index.html` in your browser
+   - Or serve it through a local web server
+
+## API Endpoints
+
+- `POST /api/rank-resume` - Analyze a resume file
+- `GET /api/statistics` - Get analysis statistics
+- `GET /api/history` - Get analysis history
+- `GET /api/templates` - Get resume templates
 
 ## Project Structure
 
 ```
 smart-resume-ranker/
-├── backend/                 # Flask backend API
-│   ├── app.py              # Main Flask application
-│   ├── requirements.txt    # Python dependencies
-│   ├── model/              # ML model components
-│   │   └── ranker.py       # Resume ranking logic
-│   └── utils/              # Utility functions
-│       └── parser.py       # Resume parsing utilities
-├── ml/                     # Machine learning components
-│   ├── train_model.py      # Model training script
-│   └── resume_dataset.csv  # Training dataset
-├── frontend/               # Web frontend
-│   ├── index.html          # Main web interface
-│   └── resume_templates.json # Resume templates
-├── test_resume1.txt        # Sample resume for testing
-├── test_resume2.txt        # Sample resume for testing
-└── README.md               # This file
-```
-
-## Installation & Setup
-
-### Prerequisites
-- Python 3.8+
-- pip
-
-### Backend Setup
-1. Navigate to the backend directory:
-   ```bash
-   cd smart-resume-ranker/backend
-   ```
-
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-### Model Training
-1. Navigate to the project root:
-   ```bash
-   cd smart-resume-ranker
-   ```
-
-2. Train the ML model:
-   ```bash
-   python ml/train_model.py
-   ```
-
-### Running the Application
-
-1. Start the backend server:
-   ```bash
-   python backend/app.py
-   ```
-   The API will be available at `http://localhost:5000`
-
-2. Open the frontend:
-   - Open `frontend/index.html` in your web browser
-   - Or serve it through a local web server
-
-## API Endpoints
-
-### POST /api/rank-resume
-Upload a resume file for analysis.
-
-**Parameters:**
-- `file`: Resume file (TXT or PDF format)
-
-**Response:**
-```json
-{
-  "score": 8.5,
-  "rank": "Excellent",
-  "skills": ["Python", "JavaScript", "React"],
-  "experience_years": 4,
-  "filename": "resume.txt"
-}
-```
-
-### GET /api/history
-Get recent ranking history.
-
-**Response:**
-```json
-[
-  {
-    "filename": "resume.txt",
-    "score": 8.5,
-    "rank": "Excellent",
-    "skills": ["Python", "JavaScript"],
-    "experience_years": 4,
-    "timestamp": "2024-01-15T10:30:00"
-  }
-]
-```
-
-### GET /api/statistics
-Get overall ranking statistics.
-
-**Response:**
-```json
-{
-  "total_rankings": 25,
-  "average_score": 7.2,
-  "rank_distribution": {
-    "Excellent": 8,
-    "Good": 12,
-    "Average": 4,
-    "Below Average": 1
-  }
-}
+├── backend/
+│   ├── app.py                 # Flask API server
+│   ├── requirements.txt       # Python dependencies
+│   ├── model/
+│   │   └── ranker.py         # ML ranking logic
+│   └── utils/
+│       └── parser.py         # Resume parsing utilities
+├── ml/
+│   ├── train_model.py        # Model training script
+│   └── resume_dataset.csv    # Training data
+├── frontend/
+│   └── index.html            # Web interface
+├── test_resume1.txt          # Sample resume 1
+├── test_resume2.txt          # Sample resume 2
+└── README.md                 # This file
 ```
 
 ## Usage
 
-1. **Upload Resume**: Click or drag a resume file (TXT format) onto the upload area
-2. **View Results**: See the AI-generated score, rank category, and extracted skills
-3. **Check History**: View previous rankings in the history section
-4. **Monitor Statistics**: Track overall performance metrics
+1. Upload a resume file (PDF or TXT) or paste resume text
+2. Click "Analyze Resume" to get AI-powered scoring
+3. View detailed results including score, rank, skills found, and experience
+4. Explore templates, statistics, and analysis history in other tabs
 
-## Technologies Used
+## Development
 
-- **Backend**: Flask, scikit-learn, pandas, numpy
-- **Machine Learning**: TF-IDF Vectorization, Linear Regression
-- **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
-- **Data Processing**: Pandas, NumPy
-
-## Model Details
-
-The ranking model uses:
-- **TF-IDF Vectorization**: Converts resume text to numerical features
-- **Linear Regression**: Predicts resume scores based on content
-- **Training Data**: 10 sample resumes with expert-assigned scores
-
-## Future Enhancements
-
-- PDF parsing support
-- Advanced NLP for better skill extraction
-- More sophisticated ML models (neural networks)
-- User authentication and resume storage
-- Batch processing capabilities
-- Integration with job posting analysis
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+The system uses a linear regression model trained on resume data to predict resume quality scores. The model considers factors like skills mentioned, experience level, and overall content quality.
 
 ## License
 
-This project is open source and available under the MIT License.
+MIT License - feel free to use and modify for your projects.

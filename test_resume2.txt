@@ -1,35 +1,29 @@
 Jane Smith
-Data Analyst
+Data Scientist
 
 Professional Summary:
-Detail-oriented data analyst with 2 years of experience in business intelligence and data visualization. Skilled in SQL, Python, and Tableau. Passionate about turning data into actionable insights.
+Data scientist with 3 years of experience in machine learning and statistical analysis. Strong background in Python, R, and deep learning frameworks. Passionate about solving complex business problems through data-driven insights.
 
 Skills:
-- Data Analysis: SQL, Python (Pandas, NumPy)
-- Visualization: Tableau, Power BI
-- Statistical Analysis: R, Excel
+- Programming: Python, R, SQL
+- Machine Learning: TensorFlow, PyTorch, scikit-learn
+- Statistics: Regression, Classification, Clustering
+- Tools: Jupyter, Tableau, Git
 - Databases: MySQL, PostgreSQL
 
 Experience:
-Data Analyst | DataCorp | 2021-Present
-- Created dashboards and reports for executive team
-- Analyzed customer behavior data to identify trends
-- Automated reporting processes saving 15 hours per week
+Data Scientist | DataTech Solutions | 2021-Present
+- Developed predictive models for customer churn
+- Created automated reporting dashboards
+- Conducted A/B testing for product features
 
-Junior Analyst | Analytics Inc. | 2020-2021
-- Assisted in data cleaning and preprocessing
-- Built basic statistical models for forecasting
-- Participated in A/B testing for product features
+Junior Data Analyst | Analytics Corp | 2019-2021
+- Performed exploratory data analysis
+- Built statistical models for sales forecasting
+- Created data visualizations for executive reports
 
 Education:
-Master of Science in Data Science | State University | 2018-2020
-Bachelor of Science in Mathematics | State University | 2014-2018
-
-Certifications:
-- Google Data Analytics Professional Certificate
-- Microsoft Certified: Azure AI Fundamentals
-
-Projects:
-- Sales Forecasting Model: Built predictive model using Python and scikit-learn
-- Customer Segmentation Analysis: Used clustering algorithms to identify customer groups
-- Interactive Dashboard: Created Tableau dashboard for real-time KPI monitoring
+Master of Science in Data Science
+State University | 2017-2019
+Bachelor of Science in Mathematics
+State University | 2013-2017

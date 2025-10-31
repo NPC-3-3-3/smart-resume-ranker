@@ -2,29 +2,27 @@ John Doe
 Software Engineer
 
 Professional Summary:
-Experienced software engineer with 4 years of expertise in full-stack development. Proficient in Python, JavaScript, React, and Node.js. Strong background in building scalable web applications and RESTful APIs.
+Experienced software engineer with 5 years of expertise in full-stack development. Proficient in Python, JavaScript, and cloud technologies. Led development of scalable web applications serving 10,000+ users.
 
 Skills:
-- Programming Languages: Python, JavaScript, Java
+- Programming: Python, JavaScript, Java, C++
 - Web Technologies: React, Node.js, HTML, CSS
+- Cloud: AWS, Docker, Kubernetes
 - Databases: PostgreSQL, MongoDB
-- Tools: Git, Docker, AWS
+- Tools: Git, Jenkins, Linux
 
 Experience:
 Senior Software Engineer | TechCorp Inc. | 2020-Present
-- Led development of microservices architecture serving 50k+ users
-- Implemented CI/CD pipelines reducing deployment time by 60%
-- Mentored junior developers and conducted code reviews
+- Developed and maintained microservices architecture
+- Improved application performance by 40%
+- Mentored junior developers and led code reviews
 
 Software Engineer | StartupXYZ | 2018-2020
-- Built responsive web applications using React and Node.js
-- Integrated third-party APIs and payment systems
-- Optimized database queries improving performance by 40%
+- Built responsive web applications using React
+- Implemented RESTful APIs with Node.js
+- Deployed applications on AWS infrastructure
 
 Education:
-Bachelor of Science in Computer Science | University of Technology | 2014-2018
+Bachelor of Science in Computer Science
+University of Technology | 2014-2018
 GPA: 3.7/4.0
-
-Projects:
-- E-commerce Platform: Built full-stack application with React frontend and Python backend
-- Task Management System: Developed real-time collaboration tool using WebSockets

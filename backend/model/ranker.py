@@ -1,46 +1,38 @@
 import joblib
-import numpy as np
+import os
 
 class ResumeRanker:
     def __init__(self):
-        self.model = None
-        self.vectorizer = None
-        self.load_model()
+        model_path = os.path.join(os.path.dirname(__file__), '../../ml/resume_model.pkl')
+        vectorizer_path = os.path.join(os.path.dirname(__file__), '../../ml/vectorizer.pkl')
 
-    def load_model(self):
-        try:
-            self.model = joblib.load('backend/model/resume_ranker.pkl')
-            self.vectorizer = joblib.load('backend/model/vectorizer.pkl')
-            print("Model loaded successfully!")
-        except FileNotFoundError:
-            print("Model files not found. Please train the model first.")
-            return False
-        return True
+        if not os.path.exists(model_path) or not os.path.exists(vectorizer_path):
+            raise FileNotFoundError("Model files not found. Please train the model first.")
+
+        self.model = joblib.load(model_path)
+        self.vectorizer = joblib.load(vectorizer_path)
 
     def rank_resume(self, resume_text):
-        if self.model is None:
-            return {"error": "Model not loaded"}
-
         # Vectorize the resume text
-        resume_vec = self.vectorizer.transform([resume_text])
+        resume_vectorized = self.vectorizer.transform([resume_text])
 
         # Predict score
-        score = self.model.predict(resume_vec)[0]
+        score = self.model.predict(resume_vectorized)[0]
 
-        # Ensure score is between 0 and 10
+        # Ensure score is within 0-10 range
         score = max(0, min(10, score))
 
-        return {
-            "score": round(float(score), 2),
-            "rank": self.get_rank_category(score)
-        }
-
-    def get_rank_category(self, score):
-        if score >= 8:
-            return "Excellent"
-        elif score >= 6:
-            return "Good"
-        elif score >= 4:
-            return "Average"
+        # Determine rank
+        if score >= 9:
+            rank = "Excellent"
+        elif score >= 7:
+            rank = "Good"
+        elif score >= 5:
+            rank = "Average"
         else:
-            return "Below Average"
+            rank = "Poor"
+
+        return {
+            'score': round(score, 2),
+            'rank': rank
+        }
