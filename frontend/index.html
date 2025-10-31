@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Resume Ranker</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      width: 100%;
+      max-width: 800px;
+      backdrop-filter: blur(10px);
+    }
+    .header {
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: white;
+      padding: 30px;
+      text-align: center;
+      position: relative;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 2.5em;
+      font-weight: 300;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    .header p {
+      margin: 10px 0 0 0;
+      opacity: 0.9;
+      font-size: 1.1em;
+    }
+    .tabs {
+      display: flex;
+      background: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .tab {
+      flex: 1;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      color: #6c757d;
+      position: relative;
+    }
+    .tab:hover {
+      background: #e9ecef;
+      color: #495057;
+    }
+    .tab.active {
+      color: #007bff;
+      background: white;
+      border-bottom: 3px solid #007bff;
+    }
+    .content {
+      padding: 40px;
+      min-height: 400px;
+    }
+    .section-title {
+      font-size: 1.8em;
+      font-weight: 300;
+      margin-bottom: 25px;
+      color: #343a40;
+    }
+    .form-group {
+      margin-bottom: 25px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #495057;
+    }
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+      box-sizing: border-box;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    }
+    .btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 14px 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+    .btn:active {
+      transform: translateY(0);
+    }
+    .template-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .template-item {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #e9ecef;
+      transition: all 0.3s ease;
+    }
+    .template-item:hover {
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+    }
+    .template-item h4 {
+      margin: 0 0 10px 0;
+      color: #343a40;
+    }
+    .template-item p {
+      margin: 0;
+      color: #6c757d;
+      font-size: 14px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .stat-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+    .stat-value {
+      font-size: 2.5em;
+      font-weight: 300;
+      margin-bottom: 5px;
+    }
+    .stat-label {
+      font-size: 1.1em;
+      opacity: 0.9;
+    }
+    .history-list {
+      margin-top: 30px;
+    }
+    .history-item {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      border-left: 4px solid #007bff;
+      transition: all 0.3s ease;
+    }
+    .history-item:hover {
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+    .history-item h5 {
+      margin: 0 0 8px 0;
+      color: #343a40;
+    }
+    .history-item p {
+      margin: 5px 0;
+      color: #6c757d;
+      font-size: 14px;
+    }
+    .file-input-wrapper {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+    .file-input {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+    .file-input-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      border: 2px dashed #007bff;
+      border-radius: 8px;
+      background: #f8f9fa;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: #6c757d;
+    }
+    .file-input-label:hover {
+      background: #e9ecef;
+      border-color: #0056b3;
+    }
+    .file-input-label i {
+      margin-right: 10px;
+      font-size: 24px;
+    }
+    .or-divider {
+      text-align: center;
+      margin: 20px 0;
+      position: relative;
+      color: #6c757d;
+    }
+    .or-divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #e9ecef;
+    }
+    .or-divider span {
+      background: white;
+      padding: 0 15px;
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Smart Resume Ranker</h1>
+      <p>AI-powered resume evaluation and ranking system</p>
+    </div>
+    <div class="tabs">
+      <div class="tab active" onclick="showTab('analyze')">Analyze Resume</div>
+      <div class="tab" onclick="showTab('templates')">Templates</div>
+      <div class="tab" onclick="showTab('statistics')">Statistics</div>
+      <div class="tab" onclick="showTab('history')">History</div>
+    </div>
+
+    <div class="content" id="analyzeContent">
+      <h2 class="section-title">Analyze Resume</h2>
+      <div class="form-group">
+        <label for="fileInput">Upload Resume File</label>
+        <div class="file-input-wrapper">
+          <input type="file" id="fileInput" accept=".txt,.pdf" class="file-input">
+          <label for="fileInput" class="file-input-label">
+            <i>📎</i> Choose file or drag and drop
+          </label>
+        </div>
+      </div>
+      <div class="or-divider">
+        <span>OR</span>
+      </div>
+      <div class="form-group">
+        <label for="resumeText">Paste Resume Text</label>
+        <textarea id="resumeText" class="form-control" placeholder="Paste your resume content here..." rows="8"></textarea>
+      </div>
+      <button class="btn" onclick="analyzeResume()">Analyze Resume</button>
+    </div>
+
+  <script>
+    const API_BASE = 'http://localhost:5000/api';
+
+    // Tab navigation functionality
+    function showTab(tabName) {
+      // Remove active class from all tabs
+      const tabs = document.querySelectorAll('.tab');
+      tabs.forEach(tab => tab.classList.remove('active'));
+
+      // Add active class to clicked tab
+      event.target.classList.add('active');
+
+      // Hide all content sections
+      const contents = document.querySelectorAll('.content');
+      contents.forEach(content => content.style.display = 'none');
+
+      // Show selected content section
+      document.getElementById(tabName + 'Content').style.display = 'block';
+    }
+
+    async function analyzeResume() {
+      const fileInput = document.getElementById('fileInput');
+      const resumeText = document.getElementById('resumeText').value;
+
+      if (!fileInput.files[0] && !resumeText.trim()) {
+        alert('Please select a file or paste resume text.');
+        return;
+      }
+
+      const formData = new FormData();
+      if (fileInput.files[0]) {
+        formData.append('file', fileInput.files[0]);
+      } else {
+        // For text input, we might need to create a blob or handle differently
+        const blob = new Blob([resumeText], { type: 'text/plain' });
+        formData.append('file', blob, 'resume.txt');
+      }
+
+      try {
+        const response = await fetch(`${API_BASE}/rank-resume`, {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert('Resume analyzed successfully! Score: ' + (result.score || 'N/A') + '/10');
+
+          // Load statistics and history
+          loadStatistics();
+          loadHistory();
+        } else {
+          alert('Analysis failed: ' + (result.error || 'Unknown error'));
+        }
+      } catch (error) {
+        alert('Network error. Please check if the backend is running.');
+      }
+    }
+
+    async function loadStatistics() {
+      try {
+        const response = await fetch(`${API_BASE}/statistics`);
+        const stats = await response.json();
+
+        document.getElementById('totalResumes').textContent = stats.total_rankings || 0;
+        document.getElementById('avgScore').textContent = stats.average_score ? stats.average_score.toFixed(2) : '0.0';
+      } catch (error) {
+        console.error('Failed to load statistics:', error);
+      }
+    }
+
+    async function loadHistory() {
+      try {
+        const response = await fetch(`${API_BASE}/history`);
+        const history = await response.json();
+
+        const historyList = document.getElementById('historyList');
+        historyList.innerHTML = '';
+
+        if (history.length === 0) {
+          historyList.innerHTML = '<p>No resume history available.</p>';
+          return;
+        }
+
+        history.forEach(item => {
+          const historyItem = document.createElement('div');
+          historyItem.style.marginBottom = '15px';
+          historyItem.style.padding = '10px';
+          historyItem.style.border = '1px solid #ddd';
+          historyItem.style.borderRadius = '5px';
+          historyItem.innerHTML = `
+            <p><strong>File:</strong> ${item.filename}</p>
+            <p><strong>Timestamp:</strong> ${new Date().toLocaleString()}</p>
+            <p><strong>Score:</strong> ${item.score}/10 (${item.rank})</p>
+          `;
+          historyList.appendChild(historyItem);
+        });
+      } catch (error) {
+        console.error('Failed to load history:', error);
+      }
+    }
+
+    function loadTemplate(templateType) {
+      // Load predefined resume templates
+      const templates = {
+        'software-engineer': `John Doe
+Software Engineer
+San Francisco, CA | (555) 123-4567 | john.doe@email.com
+
+EXPERIENCE
+Senior Software Engineer, Tech Corp (2019-Present)
+- Developed scalable web applications using React, Node.js, and Python
+- Led a team of 5 developers on microservices architecture
+- Improved application performance by 40% through code optimization
+
+Software Engineer, Startup Inc (2017-2019)
+- Built RESTful APIs and integrated third-party services
+- Implemented CI/CD pipelines using Jenkins and Docker
+
+SKILLS
+- Programming: Python, JavaScript, Java
+- Frameworks: React, Node.js, Django, Spring
+- Tools: Docker, Kubernetes, AWS, Git
+
+EDUCATION
+Bachelor of Science in Computer Science
+University of California, Berkeley (2013-2017)
+
+CERTIFICATIONS
+AWS Certified Solutions Architect
+Certified Kubernetes Administrator`,
+
+        'data-scientist': `Jane Smith
+Data Scientist
+New York, NY | (555) 987-6543 | jane.smith@email.com
+
+EXPERIENCE
+Senior Data Scientist, DataTech (2020-Present)
+- Built machine learning models for customer segmentation
+- Analyzed large datasets using Python, R, and SQL
+- Created data visualizations and dashboards using Tableau
+
+Data Analyst, Analytics Corp (2018-2020)
+- Performed statistical analysis and A/B testing
+- Developed predictive models using scikit-learn
+
+SKILLS
+- Languages: Python, R, SQL
+- ML Libraries: scikit-learn, TensorFlow, PyTorch
+- Tools: Jupyter, Tableau, Power BI, Spark
+
+EDUCATION
+Master of Science in Data Science
+Columbia University (2016-2018)
+
+CERTIFICATIONS
+TensorFlow Developer Certificate
+Certified Data Scientist`,
+
+        'marketing-manager': `Mike Johnson
+Marketing Manager
+Chicago, IL | (555) 456-7890 | mike.johnson@email.com
+
+EXPERIENCE
+Marketing Manager, Brand Agency (2019-Present)
+- Managed digital marketing campaigns with $2M+ budget
+- Increased brand awareness by 150% through social media
+- Led SEO and content marketing strategies
+
+Marketing Coordinator, Creative Inc (2017-2019)
+- Coordinated email marketing campaigns
+- Analyzed campaign performance metrics
+- Managed social media accounts
+
+SKILLS
+- Marketing: Digital Marketing, SEO, SEM, Content Marketing
+- Tools: Google Analytics, Facebook Ads, Mailchimp, HubSpot
+- Creative: Adobe Creative Suite, Canva
+
+EDUCATION
+Bachelor of Business Administration
+University of Illinois (2013-2017)
+
+CERTIFICATIONS
+Google Analytics Certified
+HubSpot Content Marketing Certification`,
+
+        'devops-engineer': `Sarah Wilson
+DevOps Engineer
+Seattle, WA | (555) 321-0987 | sarah.wilson@email.com
+
+EXPERIENCE
+Senior DevOps Engineer, CloudTech (2020-Present)
+- Designed and implemented CI/CD pipelines using Jenkins and GitLab
+- Managed infrastructure on AWS and Azure
+- Automated deployment processes reducing release time by 60%
+
+DevOps Engineer, Software Solutions (2018-2020)
+- Configured monitoring and logging with ELK stack
+- Implemented container orchestration with Kubernetes
+- Built infrastructure as code using Terraform
+
+SKILLS
+- Cloud: AWS, Azure, GCP
+- Tools: Docker, Kubernetes, Terraform, Ansible
+- CI/CD: Jenkins, GitLab CI, GitHub Actions
+- Monitoring: Prometheus, Grafana, ELK Stack
+
+EDUCATION
+Bachelor of Science in Information Technology
+University of Washington (2014-2018)
+
+CERTIFICATIONS
+AWS Certified DevOps Engineer
+Certified Kubernetes Administrator
+HashiCorp Certified Terraform Associate`
+      };
+
+      document.getElementById('resumeText').value = templates[templateType] || '';
+      document.getElementById('fileInput').value = '';
+    }
+
+    // Load initial data
+    loadStatistics();
+    loadHistory();
+  </script>
+
+    <div class="content" id="templatesContent" style="display: none;">
+      <h2 class="section-title">Resume Templates</h2>
+      <p>Click on any template below to load sample resume content for testing the ranking system.</p>
+      <div class="template-list">
+        <div class="template-item" onclick="loadTemplate('software-engineer')">
+          <h4>Software Engineer</h4>
+          <p>Full-stack developer with experience in modern web technologies and cloud platforms.</p>
+        </div>
+        <div class="template-item" onclick="loadTemplate('data-scientist')">
+          <h4>Data Scientist</h4>
+          <p>Machine learning expert with experience in predictive modeling and data analysis.</p>
+        </div>
+        <div class="template-item" onclick="loadTemplate('marketing-manager')">
+          <h4>Marketing Manager</h4>
+          <p>Digital marketing specialist with expertise in campaign management and analytics.</p>
+        </div>
+        <div class="template-item" onclick="loadTemplate('devops-engineer')">
+          <h4>DevOps Engineer</h4>
+          <p>Infrastructure automation expert with experience in CI/CD and cloud technologies.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content" id="statisticsContent" style="display: none;">
+      <h2 class="section-title">Resume Statistics</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="totalResumes">0</div>
+          <div class="stat-label">Total Resumes</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="avgScore">0.0</div>
+          <div class="stat-label">Average Score</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content" id="historyContent" style="display: none;">
+      <h2 class="section-title">Resume History</h2>
+      <div class="history-list" id="historyList">
+        <p>No resume history available yet. Analyze some resumes to see them here.</p>
+      </div>
+    </div>
+  </div>

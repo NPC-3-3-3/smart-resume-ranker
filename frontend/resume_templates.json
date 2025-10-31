@@ -1,0 +1,14 @@
+{
+  "software-engineer": {
+    "title": "Software Engineer Resume Template",
+    "content": "Experienced software engineer with 5 years in Python, Java, and web development. Led team of 3 developers on e-commerce platform. Proficient in AWS, Docker, and CI/CD pipelines. Skills: Python, Java, JavaScript, React, Node.js, SQL, Git, Docker, AWS, Kubernetes."
+  },
+  "data-analyst": {
+    "title": "Data Analyst Resume Template",
+    "content": "Detail-oriented data analyst with 3 years experience in business intelligence. Skilled in SQL, Python, R, and Tableau. Created dashboards for executive team and automated reporting processes. Skills: SQL, Python, R, Tableau, Power BI, Excel, Statistics, Machine Learning."
+  },
+  "marketing-specialist": {
+    "title": "Marketing Specialist Resume Template",
+    "content": "Results-driven marketing specialist with 4 years experience in digital marketing. Managed social media campaigns and SEO initiatives for Fortune 500 companies. Increased engagement by 150%. Skills: Digital Marketing, SEO, SEM, Social Media, Content Creation, Analytics, Google Ads."
+  }
+}

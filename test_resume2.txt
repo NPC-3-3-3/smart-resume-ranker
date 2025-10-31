@@ -1,0 +1,35 @@
+Jane Smith
+Data Analyst
+
+Professional Summary:
+Detail-oriented data analyst with 2 years of experience in business intelligence and data visualization. Skilled in SQL, Python, and Tableau. Passionate about turning data into actionable insights.
+
+Skills:
+- Data Analysis: SQL, Python (Pandas, NumPy)
+- Visualization: Tableau, Power BI
+- Statistical Analysis: R, Excel
+- Databases: MySQL, PostgreSQL
+
+Experience:
+Data Analyst | DataCorp | 2021-Present
+- Created dashboards and reports for executive team
+- Analyzed customer behavior data to identify trends
+- Automated reporting processes saving 15 hours per week
+
+Junior Analyst | Analytics Inc. | 2020-2021
+- Assisted in data cleaning and preprocessing
+- Built basic statistical models for forecasting
+- Participated in A/B testing for product features
+
+Education:
+Master of Science in Data Science | State University | 2018-2020
+Bachelor of Science in Mathematics | State University | 2014-2018
+
+Certifications:
+- Google Data Analytics Professional Certificate
+- Microsoft Certified: Azure AI Fundamentals
+
+Projects:
+- Sales Forecasting Model: Built predictive model using Python and scikit-learn
+- Customer Segmentation Analysis: Used clustering algorithms to identify customer groups
+- Interactive Dashboard: Created Tableau dashboard for real-time KPI monitoring
